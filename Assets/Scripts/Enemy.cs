@@ -8,6 +8,9 @@ public class Enemy : MonoBehaviour
     Transform target;
     Vector2 moveDirection;
 
+    public GameObject bullet;
+    public Transform bulletPos;
+    private float timer;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -26,6 +29,14 @@ public class Enemy : MonoBehaviour
             moveDirection = direction;
 
         }
+
+        timer += Time.deltaTime;
+
+        if(timer > 2)
+        {
+            timer = 0;
+            Shoot();
+        }
     }
 
     private void FixedUpdate()
@@ -35,4 +46,11 @@ public class Enemy : MonoBehaviour
             rb.linearVelocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed;
         }
     }
+
+    private void Shoot()
+    {
+        Instantiate(bullet, bulletPos.position, Quaternion.identity);
+    }
+
+
 }
