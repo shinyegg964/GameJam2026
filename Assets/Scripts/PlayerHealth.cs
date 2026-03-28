@@ -6,11 +6,14 @@ public class PlayerHealth : MonoBehaviour
 {
     public float health = 100f;
 
+    private AudioSource AS;
+    public AudioClip hit;
     private Rigidbody2D rb;
     public Sprite healthy;
     public Sprite mid;
     public Sprite dead;
 
+    public bool isDead = false;
     public Image healthBar;
     public Image Status;
 
@@ -18,6 +21,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        AS = GetComponent<AudioSource>();
         StartCoroutine(Addiction());
     }
 
@@ -25,10 +29,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if(health <= 0f)
         {
-            Status.sprite = dead;
-            anim.SetTrigger("isDead");
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
+            StartCoroutine(Dead());
         }
         if(health > 50f)
         {
@@ -42,8 +43,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        health -= damage;
-        healthBar.fillAmount = health / 100f;
+        if (!isDead)
+        {
+            AS.PlayOneShot(hit);
+            health -= damage;
+            healthBar.fillAmount = health / 100f;
+        }
+        
     }
 
     public void Heal(float heal)
@@ -68,5 +74,19 @@ public class PlayerHealth : MonoBehaviour
             health -= 1;
             healthBar.fillAmount = health / 100f;
         }
+    }
+
+    IEnumerator Dead()
+    {
+        isDead = true;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        anim.SetTrigger("isDead");
+        yield return new WaitForSeconds(1f);
+        Time.timeScale = 0f;
+        health = 0f;
+        Status.sprite = dead;
+        
+        
+        
     }
 }

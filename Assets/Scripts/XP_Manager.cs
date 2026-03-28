@@ -9,12 +9,11 @@ public class XP_Manager : MonoBehaviour
     [Header("Experience")]
     [SerializeField] AnimationCurve experienceCurve;
 
+    public GameObject Enemy;
     int currentLevel, totalExperience;
     int previousLevelsExperience, nextLevelsExperience;
 
     [Header("Interface")]
-    [SerializeField] TextMeshProUGUI levelText;
-    [SerializeField] TextMeshProUGUI experienceText;
     [SerializeField] Image experienceFill;
 
     void Start()
@@ -24,7 +23,7 @@ public class XP_Manager : MonoBehaviour
 
     void Update()
     {
-        if (GetComponent<Enemy>().health <=0)
+        if (Enemy.GetComponent<Enemy>().health <=0)
         {
             AddExperience(5);
         }
@@ -60,8 +59,6 @@ public class XP_Manager : MonoBehaviour
         int start = totalExperience - previousLevelsExperience;
         int end = nextLevelsExperience - previousLevelsExperience;
 
-        levelText.text = currentLevel.ToString();
-        experienceText.text = start + " exp / " + end + " exp";
         experienceFill.fillAmount = (float)start / (float)end;
     }
 }

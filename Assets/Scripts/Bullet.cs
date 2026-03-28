@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     public float force;
 
+    
+
     public float timer;
     void Start()
     {
