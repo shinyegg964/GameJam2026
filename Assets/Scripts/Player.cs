@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -16,8 +17,7 @@ public class Player : MonoBehaviour
     private bool isFacingRight = true;
     public float input;
 
-    public int XP = 0;
-    private int index = 1;
+    
     
     void Start()
     {
@@ -47,11 +47,7 @@ public class Player : MonoBehaviour
             StartCoroutine(Smoke());
         }
 
-        if(XP == index)
-        {
-            Upgrade();
-            index *= 2;
-        }
+        
 
         if (target)
         {

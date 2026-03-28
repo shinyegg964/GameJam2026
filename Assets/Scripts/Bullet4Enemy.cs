@@ -10,7 +10,7 @@ public class Bullet4Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
+        enemy = FindClosestEnemy();
 
         if (enemy == null)
         {
@@ -22,7 +22,28 @@ public class Bullet4Enemy : MonoBehaviour
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
     }
 
-    // Update is called once per frame
+    GameObject FindClosestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        GameObject closest = null;
+        float minDistance = Mathf.Infinity;
+
+        Vector3 currentPosition = transform.position;
+
+        foreach (GameObject e in enemies)
+        {
+            float distance = Vector3.Distance(currentPosition, e.transform.position);
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closest = e;
+            }
+        }
+
+        return closest;
+    }
     void Update()
     {
         timer += Time.deltaTime;
