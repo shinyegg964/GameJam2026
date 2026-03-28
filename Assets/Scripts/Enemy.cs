@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
+            target.GetComponent<Player>().XP += 1;
         }
 
         timer += Time.deltaTime;

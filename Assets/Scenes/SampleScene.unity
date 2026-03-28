@@ -1706,6 +1706,7 @@ MonoBehaviour:
   timer: 2
   anim: {fileID: 7878350319538775414}
   input: 0
+  XP: 0
 --- !u!1 &1927088690
 GameObject:
   m_ObjectHideFlags: 0

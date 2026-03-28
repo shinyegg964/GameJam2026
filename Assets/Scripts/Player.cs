@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
     Vector2 moveDirection;
     private bool isFacingRight = false;
     public float input;
+
+    public int XP = 0;
+    private int index = 1;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,6 +47,11 @@ public class Player : MonoBehaviour
             StartCoroutine(Smoke());
         }
 
+        if(XP == index)
+        {
+            Upgrade();
+            index *= 2;
+        }
 
         if (target)
         {
@@ -68,6 +77,10 @@ public class Player : MonoBehaviour
         Instantiate(bullet, bulletPos.position, Quaternion.identity);
     }
 
+    private void Upgrade()
+    {
+
+    }
     private void Flip()
     {
         if (isFacingRight && input < 0f || !isFacingRight && input > 0f)
@@ -81,10 +94,9 @@ public class Player : MonoBehaviour
 
     IEnumerator Smoke()
     {
-        anim.SetBool("isSmoking", true);
+        anim.SetTrigger("isSmoking");
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(2.2f);
-        anim.SetBool("isSmoking", false);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         rb.constraints = RigidbodyConstraints2D.None;
         gameObject.GetComponent<PlayerHealth>().Heal(25);
 
