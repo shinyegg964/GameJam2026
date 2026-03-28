@@ -38,6 +38,12 @@ public class Player : MonoBehaviour
             anim.SetBool("isRunning", false);
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            StartCoroutine(Smoke());
+        }
+
+
         if (target)
         {
             Vector3 direction = (target.position - transform.position).normalized;
@@ -54,6 +60,7 @@ public class Player : MonoBehaviour
         }
 
         Flip();
+
     }
 
     private void Shoot()
@@ -70,5 +77,16 @@ public class Player : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    IEnumerator Smoke()
+    {
+        anim.SetBool("isSmoking", true);
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        yield return new WaitForSeconds(2.2f);
+        anim.SetBool("isSmoking", false);
+        rb.constraints = RigidbodyConstraints2D.None;
+        gameObject.GetComponent<PlayerHealth>().Heal(25);
+
     }
 }

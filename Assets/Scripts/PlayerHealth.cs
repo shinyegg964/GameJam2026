@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public Image healthBar;
     void Start()
     {
-        
+        StartCoroutine(Addiction());
     }
 
     void Update()
@@ -16,11 +17,36 @@ public class PlayerHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        
     }
 
     public void TakeDamage(float damage)
     {
         health -= damage;
         healthBar.fillAmount = health / 100f;
+    }
+
+    public void Heal(float heal)
+    {
+        if(health <= 100)
+        {
+            health += heal;
+        }
+        else
+        {
+            health = 100;
+        }
+        healthBar.fillAmount = health / 100f;
+    }
+
+    IEnumerator Addiction()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            health -= 1;
+            healthBar.fillAmount = health / 100f;
+        }
     }
 }
