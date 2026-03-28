@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rb;
     Transform target;
     Vector2 moveDirection;
+    public float health = 50f;
 
     public GameObject bullet;
     public Transform bulletPos;
@@ -30,6 +31,11 @@ public class Enemy : MonoBehaviour
 
         }
 
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         timer += Time.deltaTime;
 
         if(timer > 2)
@@ -50,6 +56,11 @@ public class Enemy : MonoBehaviour
     private void Shoot()
     {
         Instantiate(bullet, bulletPos.position, Quaternion.identity);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
     }
 
 
