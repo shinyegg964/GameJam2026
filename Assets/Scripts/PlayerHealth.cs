@@ -5,7 +5,13 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public float health = 100f;
+
+    public Sprite healthy;
+    public Sprite mid;
+    public Sprite dead;
+
     public Image healthBar;
+    public Image Status;
     void Start()
     {
         StartCoroutine(Addiction());
@@ -15,7 +21,16 @@ public class PlayerHealth : MonoBehaviour
     {
         if(health <= 0)
         {
+            Status.sprite = dead;
             Destroy(gameObject);
+        }
+        if(health > 50f)
+        {
+            Status.sprite = healthy;
+        }
+        else if (health <= 50f && health != 0)
+        {
+            Status.sprite = mid;
         }
     }
 
