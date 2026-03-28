@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet4Enemy : MonoBehaviour
 {
-    private GameObject player;
+    private GameObject enemy;
     private Rigidbody2D rb;
     public float force;
 
@@ -10,9 +10,15 @@ public class Bullet4Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Enemy");
+        enemy = GameObject.FindGameObjectWithTag("Enemy");
 
-        Vector3 direction = player.transform.position - transform.position;
+        if (enemy == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Vector3 direction = enemy.transform.position - transform.position;
         rb.linearVelocity = new Vector2(direction.x, direction.y).normalized * force;
     }
 

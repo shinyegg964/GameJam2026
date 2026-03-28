@@ -17,8 +17,6 @@ public class PlayerHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-        
     }
 
     public void TakeDamage(float damage)
@@ -32,11 +30,12 @@ public class PlayerHealth : MonoBehaviour
         if(health <= 100)
         {
             health += heal;
+            if(health > 100)
+            {
+                health = 100;
+            }
         }
-        else
-        {
-            health = 100;
-        }
+        
         healthBar.fillAmount = health / 100f;
     }
 

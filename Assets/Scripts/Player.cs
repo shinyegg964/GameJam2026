@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public float timer;
     public Animator anim;
     Vector2 moveDirection;
-    private bool isFacingRight = false;
+    private bool isFacingRight = true;
     public float input;
 
     public int XP = 0;
