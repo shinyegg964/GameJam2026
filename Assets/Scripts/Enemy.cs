@@ -4,10 +4,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    public GameObject brko;
     Rigidbody2D rb;
     Transform target;
     Vector2 moveDirection;
     public float health = 50f;
+    public XP_Manager xpManager;
 
     public GameObject bullet;
     public Transform bulletPos;
@@ -15,6 +17,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        xpManager = FindObjectOfType<XP_Manager>();
     }
 
     private void Start()
@@ -34,7 +37,12 @@ public class Enemy : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
-            
+            xpManager.AddExperience(5);
+            if (Random.Range(0,5) == 0)
+            {
+                Instantiate(brko, transform.position, Quaternion.identity);
+            }
+           
         }
 
         timer += Time.deltaTime;

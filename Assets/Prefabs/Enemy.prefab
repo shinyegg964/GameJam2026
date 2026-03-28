@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   moveSpeed: 4
+  brko: {fileID: 4227802885324742640, guid: 524a8d76b9574f44395fdb618a1c2e29, type: 3}
   health: 50
   bullet: {fileID: 4398475931271298084, guid: 8c1c74722f21e9f4cbc707219087570c, type: 3}
   bulletPos: {fileID: 3900116579908736379}

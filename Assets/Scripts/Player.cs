@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public float moveSpeed;
     private Rigidbody2D rb;
+    private AudioSource AS;
+    public AudioClip smoke;
     Transform target;
+    public TextMeshProUGUI cigarety;
     public GameObject bullet;
     public Transform bulletPos;
     public float timer;
@@ -16,12 +20,15 @@ public class Player : MonoBehaviour
     Vector2 moveDirection;
     private bool isFacingRight = true;
     public float input;
+    public int cig = 5;
 
     
     
     void Start()
     {
+        cigarety.text = "Cigarety: " + cig;
         rb = GetComponent<Rigidbody2D>();
+        AS = GetComponent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
 
@@ -77,6 +84,8 @@ public class Player : MonoBehaviour
     {
 
     }
+
+    
     private void Flip()
     {
         if (isFacingRight && input < 0f || !isFacingRight && input > 0f)
@@ -90,11 +99,17 @@ public class Player : MonoBehaviour
 
     IEnumerator Smoke()
     {
-        anim.SetTrigger("isSmoking");
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        rb.constraints = RigidbodyConstraints2D.None;
-        gameObject.GetComponent<PlayerHealth>().Heal(25);
+        if(cig >= 1 && gameObject.GetComponent<PlayerHealth>().isDead == false)
+        {
+            cig -= 1;
+            AS.PlayOneShot(smoke);
+            anim.SetTrigger("isSmoking");
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            rb.constraints = RigidbodyConstraints2D.None;
+            gameObject.GetComponent<PlayerHealth>().Heal(25);
+        }
+        
 
     }
 }

@@ -14,6 +14,8 @@ public class XP_Manager : MonoBehaviour
     int previousLevelsExperience, nextLevelsExperience;
 
     [Header("Interface")]
+    [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] TextMeshProUGUI experienceText;
     [SerializeField] Image experienceFill;
 
     void Start()
@@ -23,10 +25,7 @@ public class XP_Manager : MonoBehaviour
 
     void Update()
     {
-        if (Enemy.GetComponent<Enemy>().health <=0)
-        {
-            AddExperience(5);
-        }
+        
     }
 
     public void AddExperience(int amount)
@@ -38,7 +37,7 @@ public class XP_Manager : MonoBehaviour
 
     void CheckForLevelUp()
     {
-        if (totalExperience >= nextLevelsExperience)
+        while (totalExperience >= nextLevelsExperience)
         {
             currentLevel++;
             UpdateLevel();
@@ -59,6 +58,8 @@ public class XP_Manager : MonoBehaviour
         int start = totalExperience - previousLevelsExperience;
         int end = nextLevelsExperience - previousLevelsExperience;
 
+        levelText.text = "Level: " + currentLevel;
+        experienceText.text = start + " exp / " + end + " exp";
         experienceFill.fillAmount = (float)start / (float)end;
     }
 }
