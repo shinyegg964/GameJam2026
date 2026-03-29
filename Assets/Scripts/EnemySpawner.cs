@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    
 
+    public GameObject[] enemies;
     public float minimumSpawnTime = 3f;
     public float maximumSpawnTime = 7f;
 
-    public int maxEnemies = 10; // limit nepřátel
+    public int maxEnemies = 1000; // limit nepřátel
     private int currentEnemies = 0;
 
     public float difficultyIncreaseRate = 0.95f; // zrychlování spawnu
@@ -44,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Vector2 spawnPos = (Vector2)transform.position + Random.insideUnitCircle * spawnRadius;
 
-        GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        GameObject enemy = Instantiate(enemies[Random.Range(0,enemies.Length)], spawnPos, Quaternion.identity);
 
         currentEnemies++;
 

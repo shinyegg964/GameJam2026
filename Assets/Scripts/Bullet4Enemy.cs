@@ -55,13 +55,20 @@ public class Bullet4Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(player.GetComponent<Player>().damage);
+            IDamegable dmg = collision.GetComponent<IDamegable>();
+
+            if (dmg != null)
+            {
+                dmg.TakeDamage(player.GetComponent<Player>().damage);
+            }
+
             Destroy(gameObject);
         }
     }
 }
+

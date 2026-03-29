@@ -2,7 +2,7 @@ using UnityEngine;
 using Unity.VisualScripting;
 using System;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamegable
 {
     public float moveSpeed = 5f;
     public GameObject brko;
