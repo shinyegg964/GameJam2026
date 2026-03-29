@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private AudioSource AS;
     public AudioClip smoke;
+    public float damage;
     Transform target;
     public TextMeshProUGUI cigarety;
     public GameObject bullet;
@@ -102,6 +103,7 @@ public class Player : MonoBehaviour
         if(cig >= 1 && gameObject.GetComponent<PlayerHealth>().isDead == false)
         {
             cig -= 1;
+            cigarety.text = "Cigarety: " + cig;
             AS.PlayOneShot(smoke);
             anim.SetTrigger("isSmoking");
             rb.constraints = RigidbodyConstraints2D.FreezeAll;

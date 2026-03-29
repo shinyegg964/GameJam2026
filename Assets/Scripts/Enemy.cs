@@ -37,7 +37,7 @@ public class Enemy : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
-            xpManager.AddExperience(5);
+            xpManager.AddExperience(10);
             if (Random.Range(0,5) == 0)
             {
                 Instantiate(brko, transform.position, Quaternion.identity);

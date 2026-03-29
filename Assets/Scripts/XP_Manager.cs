@@ -9,6 +9,8 @@ public class XP_Manager : MonoBehaviour
     [Header("Experience")]
     [SerializeField] AnimationCurve experienceCurve;
 
+    public LevelUpUI levelUpUI;
+
     public GameObject Enemy;
     int currentLevel, totalExperience;
     int previousLevelsExperience, nextLevelsExperience;
@@ -21,6 +23,8 @@ public class XP_Manager : MonoBehaviour
     void Start()
     {
         UpdateLevel();
+
+        levelUpUI.ShowLevelUp();
     }
 
     void Update()
@@ -42,7 +46,7 @@ public class XP_Manager : MonoBehaviour
             currentLevel++;
             UpdateLevel();
 
-            // Start level up sequence... Possibly vfx?
+            levelUpUI.ShowLevelUp();
         }
     }
 

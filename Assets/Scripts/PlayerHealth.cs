@@ -1,10 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
     public float health = 100f;
+    public GameObject deadMessage;
 
     private AudioSource AS;
     public AudioClip hit;
@@ -113,7 +116,10 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         Time.timeScale = 0f;
-
+        deadMessage.SetActive(true);
         Status.sprite = dead;
+        yield return new WaitForSecondsRealtime(3f);
+        deadMessage.SetActive(false);
+        SceneManager.LoadSceneAsync(0);
     }
 }

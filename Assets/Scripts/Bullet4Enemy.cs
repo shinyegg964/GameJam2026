@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Bullet4Enemy : MonoBehaviour
 {
+    private GameObject player;
     private GameObject enemy;
     private Rigidbody2D rb;
     public float force;
@@ -11,6 +12,7 @@ public class Bullet4Enemy : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         enemy = FindClosestEnemy();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         if (enemy == null)
         {
@@ -58,7 +60,7 @@ public class Bullet4Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(25);
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(player.GetComponent<Player>().damage);
             Destroy(gameObject);
         }
     }
